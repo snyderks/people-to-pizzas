@@ -1,0 +1,42 @@
+{
+	"ImportPath": "github.com/snyderks/people-to-pizzas",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/ohheydom/linearregression",
+			"Rev": "89676be71ba414a76eb320bddacd9b1a328d4327"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "f5dfe339be1d06f81b22525fe34671ee7d2c8904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context/ctxhttp",
+			"Rev": "f5dfe339be1d06f81b22525fe34671ee7d2c8904"
+		},
+		{
+			"ImportPath": "google.golang.org/api/gensupport",
+			"Rev": "3acc4f94acb5b02441cce6db56fc82a1016eadb4"
+		},
+		{
+			"ImportPath": "google.golang.org/api/googleapi",
+			"Rev": "3acc4f94acb5b02441cce6db56fc82a1016eadb4"
+		},
+		{
+			"ImportPath": "google.golang.org/api/googleapi/internal/uritemplates",
+			"Rev": "3acc4f94acb5b02441cce6db56fc82a1016eadb4"
+		},
+		{
+			"ImportPath": "google.golang.org/api/googleapi/transport",
+			"Rev": "3acc4f94acb5b02441cce6db56fc82a1016eadb4"
+		},
+		{
+			"ImportPath": "google.golang.org/api/sheets/v4",
+			"Rev": "3acc4f94acb5b02441cce6db56fc82a1016eadb4"
+		}
+	]
+}
