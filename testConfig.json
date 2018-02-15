@@ -1,0 +1,10 @@
+{
+  "slack-token": "ajkldjflkdfjalkj",
+  "sheets-key": "jsklfdjlskdfjlksd",
+  "sheet-range": "A1:D105",
+  "too-little-increase": 0.3,
+  "max-people": 100,
+  "http-port": ":80",
+  "hostname": "siteysite.site",
+  "debug": false
+}
