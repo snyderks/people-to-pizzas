@@ -20,11 +20,15 @@ type Response struct {
 func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 	people := r.URL.Query().Get("text")
 	if len(people) == 0 {
-		log.Fatal("Misread the response. Couldn't find the text")
+		log.Println("Misread the response. Couldn't find the text")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	token := r.URL.Query().Get("token")
 	if len(token) == 0 {
-		log.Fatal("Misread the response. Couldn't find the token")
+		log.Println("Misread the response. Couldn't find the token")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	if token != Conf.SlackToken {
 		return // Just drop the request. Don't tell them anything
@@ -36,7 +40,9 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "ephemeral",
 				Text: "You entered something that's not a number."})
 		if err != nil {
-			log.Fatal("Couldn't return the response.")
+			log.Println("Couldn't return the response.")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 		// Return the response
 		w.Write([]byte(ret))
@@ -48,7 +54,9 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "ephemeral",
 				Text: "Too many people. Please enter a number less than" + strconv.Itoa(Conf.MaxPeople)})
 		if err != nil {
-			log.Fatal("Couldn't return the response.")
+			log.Println("Couldn't return the response.")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 		// Return the response
 		w.Write([]byte(ret))
@@ -66,7 +74,9 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "in_channel",
 				Text: "You should order " + strconv.FormatFloat(result, 'g', 5, 64) + " pizzas for " + people + " people."})
 		if err != nil {
-			log.Fatal("Couldn't return the response.")
+			log.Println("Couldn't return the response.")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 		// Return the response
 		w.Write([]byte(ret))
@@ -74,7 +84,9 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		ret, err := json.Marshal(Response{ResponseType: "ephemeral", Text: "Not enough records yet. Add some more pizza to the spreadsheet."})
 		if err != nil {
-			log.Fatal("Couldn't return the response.")
+			log.Println("Couldn't return the response.")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 		// Return the response
 		w.Write([]byte(ret))
