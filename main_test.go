@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http/httptest"
+	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -56,8 +58,11 @@ func TestPeopleToPizzas(t *testing.T) {
 }
 
 func TestPeopleToPizzaHandler(t *testing.T) {
-	c, _ := ConfigRead("config.json")
-	req := httptest.NewRequest("POST", "/api/pizza?token="+c.SlackToken+"&text=5", nil)
+	b := url.Values{}
+	b.Add("token", Conf.SlackToken)
+	b.Add("text", "5")
+	req := httptest.NewRequest("POST", "/api/pizza", strings.NewReader(b.Encode()))
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	w := httptest.NewRecorder()
 	PeopleToPizzaHandler(w, req)
 

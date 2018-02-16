@@ -18,14 +18,15 @@ type Response struct {
 
 // PeopleToPizzaHandler determines how many pizza for people.
 func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.URL)
-	people := r.URL.Query().Get("text")
+	r.ParseForm()
+	log.Println(r.PostForm)
+	people := r.PostForm.Get("text")
 	if len(people) == 0 {
 		log.Println("Misread the response. Couldn't find the text")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	token := r.URL.Query().Get("token")
+	token := r.PostForm.Get("token")
 	if len(token) == 0 {
 		log.Println("Misread the response. Couldn't find the token")
 		w.WriteHeader(http.StatusInternalServerError)
