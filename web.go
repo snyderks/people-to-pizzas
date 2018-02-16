@@ -18,6 +18,7 @@ type Response struct {
 
 // PeopleToPizzaHandler determines how many pizza for people.
 func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println(r.URL)
 	people := r.URL.Query().Get("text")
 	if len(people) == 0 {
 		log.Println("Misread the response. Couldn't find the text")
@@ -97,5 +98,5 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 // SetUpAPICalls creates handler functions for api calls
 func SetUpAPICalls() {
 	fmt.Println("Setting up handlers...")
-	http.HandleFunc("/api/pizza/", PeopleToPizzaHandler)
+	http.HandleFunc("/api/pizza", PeopleToPizzaHandler)
 }
