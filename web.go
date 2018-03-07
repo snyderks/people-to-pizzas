@@ -70,7 +70,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 
 	v, err := GetData(InitClient())
 	if err != nil {
-		log.Println("Couldn't return the response.")
+		log.Println("Couldn't return the response:", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
