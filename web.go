@@ -33,6 +33,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if token != Conf.SlackToken {
+		log.Println("Token mismatch.")
 		return // Just drop the request. Don't tell them anything
 	}
 
@@ -47,6 +48,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// Return the response
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(ret))
 		return
 	}
@@ -61,11 +63,18 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// Return the response
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(ret))
 		return
 	}
 
-	v := GetData(InitClient())
+	v, err := GetData(InitClient())
+	if err != nil {
+		log.Println("Couldn't return the response.")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	fmt.Println(v)
 	if len(v) > 1 {
 		result, err := PeopleToPizzas(peopleNum, v)
@@ -81,6 +90,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// Return the response
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(ret))
 		return
 	} else {
@@ -91,6 +101,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// Return the response
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(ret))
 		return
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -40,7 +41,7 @@ func InitClient() *sheets.Service {
 }
 
 // GetData retrieves spreadsheet data.
-func GetData(s *sheets.Service) []PizzaRecord {
+func GetData(s *sheets.Service) (records []PizzaRecord, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Failed to parse record", r)
@@ -49,7 +50,7 @@ func GetData(s *sheets.Service) []PizzaRecord {
 
 	resp, err := s.Spreadsheets.Values.Get(Conf.SheetID, Conf.SheetRange).Context(Ctx).Do()
 	if err != nil {
-		log.Fatalf("Failed to get spreadsheet.")
+		return nil, errors.New("Failed to get spreadsheet " + err.Error())
 	}
 	recs := make([]PizzaRecord, 0)
 	if len(resp.Values) > 0 {
@@ -72,5 +73,5 @@ func GetData(s *sheets.Service) []PizzaRecord {
 		}
 	}
 
-	return recs
+	return recs, nil
 }
