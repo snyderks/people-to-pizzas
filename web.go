@@ -43,7 +43,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "ephemeral",
 				Text: "You entered something that's not a number."})
 		if err != nil {
-			log.Println("Couldn't return the response.")
+			log.Println("Couldn't return the response for not a number error:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -58,7 +58,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "ephemeral",
 				Text: "Too many people. Please enter a number less than" + strconv.Itoa(Conf.MaxPeople)})
 		if err != nil {
-			log.Println("Couldn't return the response.")
+			log.Println("Couldn't return the response for out of bounds error:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -85,7 +85,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 			Response{ResponseType: "in_channel",
 				Text: "You should order " + strconv.FormatFloat(result, 'g', 5, 64) + " pizzas for " + people + " people."})
 		if err != nil {
-			log.Println("Couldn't return the response.")
+			log.Println("Couldn't return the response for pizza advisement:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -96,7 +96,7 @@ func PeopleToPizzaHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		ret, err := json.Marshal(Response{ResponseType: "ephemeral", Text: "Not enough records yet. Add some more pizza to the spreadsheet."})
 		if err != nil {
-			log.Println("Couldn't return the response.")
+			log.Println("Couldn't return the response for not enough records:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
