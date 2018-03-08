@@ -41,7 +41,7 @@ func ConfigRead(path string) (Config, error) {
 		config := Config{
 			SlackToken:        os.Getenv("PIZZA_SLACK_TOKEN"),
 			SheetsKey:         os.Getenv("PIZZA_SHEETS_KEY"),
-			SheetID:           os.Getenv("PIZZA_SHEET-ID"),
+			SheetID:           os.Getenv("PIZZA_SHEET_ID"),
 			SheetRange:        os.Getenv("PIZZA_SHEET_RANGE"),
 			TooLittleIncrease: tooLittle,
 			MaxPeople:         maxPeople,
