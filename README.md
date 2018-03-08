@@ -1,5 +1,7 @@
 # People -> Pizzas
 
+![People to Pizzas Icon](icon.svg)
+
 Take people and get pizzas.
 
 ## Setup
