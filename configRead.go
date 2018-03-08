@@ -22,27 +22,27 @@ type Config struct {
 	Debug             bool    `json:"debug"`
 }
 
-// Read takes a path to a JSON file.
+// ConfigRead takes a path to a JSON file.
 // If it fails to read the file, it falls back to environment variables.
 // Returns an error if it can't parse the JSON file or if it can't read environment variables.
 func ConfigRead(path string) (Config, error) {
 	file, err := ioutil.ReadFile(path)
 	if err != nil { // not using json config. Try to get it from env vars
-		tooLittleStr := os.Getenv("PIZZA-TOO-LITTLE-INCREASE")
+		tooLittleStr := os.Getenv("PIZZA_TOO_LITTLE_INCREASE")
 		tooLittle, err := strconv.ParseFloat(tooLittleStr, 64)
 		if err != nil {
-			log.Fatal("Couldn't convert PIZZA-TOO-LITTLE-INCREASE env var to float64.")
+			log.Fatal("Couldn't convert PIZZA_TOO_LITTLE_INCREASE env var to float64.")
 		}
-		maxPeopleStr := os.Getenv("PIZZA-MAX-PEOPLE")
+		maxPeopleStr := os.Getenv("PIZZA_MAX_PEOPLE")
 		maxPeople, err := strconv.Atoi(maxPeopleStr)
 		if err != nil {
-			log.Fatal("Couldn't convert PIZZA-MAX-PIZZAS env var to int.")
+			log.Fatal("Couldn't convert PIZZA_MAX_PIZZAS env var to int.")
 		}
 		config := Config{
-			SlackToken:        os.Getenv("PIZZA-SLACK-TOKEN"),
-			SheetsKey:         os.Getenv("PIZZA-SHEETS-KEY"),
-			SheetID:           os.Getenv("PIZZA-SHEET-ID"),
-			SheetRange:        os.Getenv("PIZZA-SHEET-RANGE"),
+			SlackToken:        os.Getenv("PIZZA_SLACK_TOKEN"),
+			SheetsKey:         os.Getenv("PIZZA_SHEETS_KEY"),
+			SheetID:           os.Getenv("PIZZA_SHEET-ID"),
+			SheetRange:        os.Getenv("PIZZA_SHEET_RANGE"),
 			TooLittleIncrease: tooLittle,
 			MaxPeople:         maxPeople,
 			HTTPPort:          os.Getenv("PORT"),
