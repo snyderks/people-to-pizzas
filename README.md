@@ -1,5 +1,7 @@
 # People -> Pizzas
 
+![Travis CI status](https://travis-ci.org/snyderks/people-to-pizzas.svg?branch=master)
+
 ![People to Pizzas Icon](icon.svg)
 
 Take people and get pizzas.
