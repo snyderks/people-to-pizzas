@@ -6,6 +6,8 @@
 
 Take people and get pizzas.
 
+Built because [ACM@UC](https://acmatuc.org) can't remember how many pizzas to buy for *X* people.
+
 ## Setup
 1. You need [Go](https://golang.org) to compile and run the app—this was written in `1.9.2`.
 2. `go get github.com/snyderks/people-to-pizzas`
